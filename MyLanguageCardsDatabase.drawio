@@ -1,9 +1,60 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" version="24.7.6">
   <diagram name="Страница — 1" id="9xlfPbFHGRW-Ufqjl7n8">
-    <mxGraphModel>
+    <mxGraphModel dx="1434" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="Nm2KeJbvDA310HhIaa4_-27" value="User" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="30" y="10" width="185" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="Nm2KeJbvDA310HhIaa4_-28" value="id: PK unique number" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="Nm2KeJbvDA310HhIaa4_-27">
+          <mxGeometry y="26" width="185" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Nm2KeJbvDA310HhIaa4_-29" value="username string(30) NOT NULL" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="Nm2KeJbvDA310HhIaa4_-27">
+          <mxGeometry y="56" width="185" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Nm2KeJbvDA310HhIaa4_-31" value="Vocabulary" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="301" y="30" width="226" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="Nm2KeJbvDA310HhIaa4_-32" value="id: PK unique number" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="Nm2KeJbvDA310HhIaa4_-31">
+          <mxGeometry y="26" width="226" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Nm2KeJbvDA310HhIaa4_-33" value="userId: FK number NOT NULL" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="Nm2KeJbvDA310HhIaa4_-31">
+          <mxGeometry y="56" width="226" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Nm2KeJbvDA310HhIaa4_-34" value="sourceLanguageLabel: string (50) NOT NULL" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="Nm2KeJbvDA310HhIaa4_-31">
+          <mxGeometry y="86" width="226" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Nm2KeJbvDA310HhIaa4_-9" value="targetLanguageLabel: string (50) NOT NULL" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="Nm2KeJbvDA310HhIaa4_-31">
+          <mxGeometry y="116" width="226" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Nm2KeJbvDA310HhIaa4_-13" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERoneToMany;rounded=0;" edge="1" parent="1" source="Nm2KeJbvDA310HhIaa4_-27" target="Nm2KeJbvDA310HhIaa4_-33">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="180" y="230" as="sourcePoint" />
+            <mxPoint x="254" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Nm2KeJbvDA310HhIaa4_-35" value="Card" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="270" y="230" width="260" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="Nm2KeJbvDA310HhIaa4_-36" value="id: PK unique number" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="Nm2KeJbvDA310HhIaa4_-35">
+          <mxGeometry y="26" width="260" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Nm2KeJbvDA310HhIaa4_-37" value="vocabularyId: FK number NOT NULL" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="Nm2KeJbvDA310HhIaa4_-35">
+          <mxGeometry y="56" width="260" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Nm2KeJbvDA310HhIaa4_-38" value="sourceLanguage: string (200) NOT NULL" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="Nm2KeJbvDA310HhIaa4_-35">
+          <mxGeometry y="86" width="260" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Nm2KeJbvDA310HhIaa4_-39" value="targetLanguage: string (200) NOT NULL" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="Nm2KeJbvDA310HhIaa4_-35">
+          <mxGeometry y="116" width="260" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Nm2KeJbvDA310HhIaa4_-40" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERoneToMany;rounded=0;" edge="1" parent="1" source="Nm2KeJbvDA310HhIaa4_-31" target="Nm2KeJbvDA310HhIaa4_-37">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="570" y="140" as="sourcePoint" />
+            <mxPoint x="670" y="40" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
