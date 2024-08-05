@@ -1,4 +1,4 @@
-class ValidationError extends Error {
+export class ValidationError extends Error {
   constructor(message: string){
     super(message)
   }
@@ -19,4 +19,9 @@ class ValidationError extends Error {
   static unexpectedLength (length: number) {
     return new ValidationError('Unexpected length ' + length)
   }
+
+  
 }
+
+export default ValidationError
+

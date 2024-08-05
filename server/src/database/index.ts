@@ -1,13 +1,14 @@
 import { DataTypes } from 'sequelize'
-import * as Models from './models'
 import sequelize from './sequelize'
-import { UserRoleType } from '../types/UserRoleType';
+import * as Models from './models'
+import { UserRoleType } from '../types/UserRoleType'
 
 Models.User.init(
   {
-    id: { type: DataTypes.NUMBER, autoIncrement: true, primaryKey: true, allowNull: false },
-    _username: { type: DataTypes.STRING(30), allowNull: false },
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false },
+    _username: { type: DataTypes.STRING(30) },
     _password: { type: DataTypes.STRING, allowNull: false },
+    _email: { type: DataTypes.STRING, allowNull: false },
     _role: { type: DataTypes.STRING(10), allowNull: false, defaultValue: 'user' as UserRoleType }
   }, {
     sequelize,
@@ -19,8 +20,8 @@ Models.User.init(
 
 Models.Card.init(
   {
-    id: { type: DataTypes.NUMBER, autoIncrement: true, primaryKey: true, allowNull: false },
-    vocabularyId: { type: DataTypes.NUMBER, allowNull: false },
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false },
+    vocabularyId: { type: DataTypes.INTEGER, allowNull: false },
     _source: { type: DataTypes.STRING, allowNull: false },
     _target: { type: DataTypes.STRING, allowNull: false }
   }, {
@@ -33,8 +34,9 @@ Models.Card.init(
 
 Models.Vocabulary.init(
   {
-    id: { type: DataTypes.NUMBER, autoIncrement: true, primaryKey: true, allowNull: false },
-    userId: { type: DataTypes.NUMBER, allowNull: false },
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false },
+    userId: { type: DataTypes.INTEGER, allowNull: false },
+    _name: { type: DataTypes.STRING },
     _sourceLanguageLabel: { type: DataTypes.STRING, allowNull: false },
     _targetLanguageLabel: { type: DataTypes.STRING, allowNull: false }
   }, {
@@ -43,6 +45,9 @@ Models.Vocabulary.init(
     modelName: 'vocabulary'
   }
 )
+
+Models.User.hasMany(Models.Vocabulary, {foreignKey: "userId"})
+Models.Vocabulary.hasMany(Models.Card, {foreignKey: "vocabularyId"});
 
 
 

@@ -1,3 +1,4 @@
+import ValidationError from "../errors/ValidationError";
 import { PrimitiveType } from "../types/PrimitiveType";
 
 class ValidatorClass {

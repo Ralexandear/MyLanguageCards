@@ -1,8 +1,8 @@
 import 'dotenv/config';
-import Utilities from './utilities/Utilities';
-import Validator from './validators/Validator';
+import Validator from '../validators/Validator';
 import TelegramBot from 'node-telegram-bot-api';
-import isNotEmptyStringValidation from './validators/isNotEmptyStringValidation';
+import isNotEmptyStringValidation from '../validators/isNotEmptyStringValidation';
+import Utilities from '../utilities/Utilities';
 const ENV = process.env;
 
 const BotToken = Utilities.getFromEnv('BOT_TOKEN', isNotEmptyStringValidation)

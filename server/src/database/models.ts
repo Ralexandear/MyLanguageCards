@@ -1,14 +1,12 @@
 import { Model } from "sequelize";
 import * as Interface from '../interfaces/databaseInterfaces'
-import { Length, Validate, validateOrReject } from "class-validator";
+import { Length } from "class-validator";
 import { UserRoleType } from "../types/UserRoleType";
 import Validator from "../validators/Validator";
+import ValidationError from "../errors/ValidationError";
 
-// Класс "User" неправильно реализует интерфейс "UserAttributes".
-//   Свойство "_username" является закрытым в типе "User" и не является таковым в типе "UserAttributes".
 export class User extends Model<Interface.UserAttributes, Interface.UserCreationAttributes> {
   readonly id!: number;
-  // @Length(3, 30)
   private _username!: string;
   private _role!: UserRoleType;
   private _password!: string;
@@ -43,11 +41,26 @@ export class User extends Model<Interface.UserAttributes, Interface.UserCreation
 }
 
 
+
 export class Vocabulary extends Model<Interface.VocabularyAttributes, Interface.VocabularyCreationAttributes> {
   readonly id!: number;
   readonly userId!: number;
+  private _email!: string
   private _sourceLanguageLabel!: string;
   private _targetLanguageLabel!: string;
+  private _name!: string | null
+
+  get email () {
+    return this._email
+  }
+
+  get name () {
+    return this._name
+  }
+
+  set name (name: string | null) {
+    this._name = name
+  }
 
   get sourceLanguageLabel () {
     return this._sourceLanguageLabel
