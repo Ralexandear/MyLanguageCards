@@ -1,9 +1,10 @@
 import { Model } from "sequelize";
-import * as Interface from '../interfaces/databaseInterfaces'
+import * as Interface from '@shared/interfaces/databaseInterfaces'
+
 import { Length } from "class-validator";
-import { UserRoleType } from "../types/UserRoleType";
-import Validator from "../validators/Validator";
-import ValidationError from "../errors/ValidationError";
+import { UserRoleType } from "@shared/types/UserRoleType";
+import Validator from "../../../shared/utils/Validator";
+import ValidationError from "@shared/errors/ValidationError";
 
 export class User extends Model<Interface.UserAttributes, Interface.UserCreationAttributes> {
   readonly id!: number;

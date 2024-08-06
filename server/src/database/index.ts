@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 import sequelize from './sequelize'
 import * as Models from './models'
-import { UserRoleType } from '../types/UserRoleType'
+import { UserRoleType } from '@shared/types/UserRoleType'
 
 Models.User.init(
   {

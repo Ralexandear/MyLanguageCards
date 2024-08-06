@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { ApiError } from "../../errors/ApiError";
+import { ApiError } from "@shared/errors/ApiError";
 import jwt from 'jsonwebtoken'
 import Config from "../../Config";
-import { RequestWithUserAttributes } from "../../interfaces/api/apiInterfaces";
-import { JWTUserAttributes } from "../../interfaces/api/apiUserInterfaces";
+import { RequestWithUserAttributes } from "@shared/interfaces/api/apiInterfaces";
+import { JWTUserAttributes } from "@shared/interfaces/api/apiUserInterfaces";
 
 const getJwtToken = (header: string | undefined) => {
   if (! header) throw new Error('Header is missing');
@@ -22,7 +22,7 @@ export function AuthMiddleware(req: Request, res: Response, next: NextFunction) 
     console.log(req.headers)
     const token = getJwtToken(req.headers.authorization || req.headers['Authorization']?.toString())
     const decodedData = jwt.verify(token, Config.SECRET_KEY) as JWTUserAttributes
-    (req as RequestWithUserAttributes).userAttributes = decodedData
+    (req as unknown as RequestWithUserAttributes).userAttributes = decodedData
     next()
   } catch(err) {
     console.log(err)

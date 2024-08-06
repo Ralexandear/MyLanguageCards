@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import Validator from '../validators/Validator';
+import Validator from '../../../shared/utils/Validator';
 import TelegramBot from 'node-telegram-bot-api';
 import isNotEmptyStringValidation from '../validators/isNotEmptyStringValidation';
 import Utilities from '../utilities/Utilities';

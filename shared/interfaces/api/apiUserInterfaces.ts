@@ -1,4 +1,4 @@
-import { UserRoleType } from "../../types/UserRoleType";
+import { UserRoleType } from "../../../server/src/types/UserRoleType";
 
 export interface ApiUserAuthAttributes {
   email: string;

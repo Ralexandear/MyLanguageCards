@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { ApiError } from "../../errors/ApiError";
-import { HttpStatusCode } from "../../enums/HttpStatusCodeEnum";
+import { HttpStatusCode } from "../../../../shared/enums/HttpStatusCodeEnum";
 import VocabularyDatabaseController from "../../database/controllers/vocabularyDatabaseController";
 import { ApiVocabularyCreationAttributes, ApiVocabularyEditAttributes } from "../../interfaces/api/apiVocabularyInterfaces";
 

@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import Config from '../Config';
 import cors from 'cors'
-import { NodeEnv } from '../enums/NodeEnvEnum';
+import { NodeEnv } from '../../../shared/enums/NodeEnvEnum';
 import DatabaseInitialisationPromise from '../database';
 import router from './routes';
 import errorHandlingMiddleware from './middleware/ErrorHandlingMiddleware';
