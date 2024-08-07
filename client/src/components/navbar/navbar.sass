@@ -1,0 +1,108 @@
+@import '../../styles/styleVars'
+
+.navbar
+  position: fixed
+  bottom: 0
+  left: 0
+
+  width: 100%
+  padding: 20px 0
+
+  display: flex
+  flex-direction: row
+  justify-content: center
+  z-index: 1000
+
+  border-top: 1px solid $gray-color
+
+  &__logo
+    display: none
+
+  &__list
+    width: 100%
+    display: flex
+    justify-content: space-around
+
+  &__nav
+    &-description
+      display: none
+
+    &-icon
+      display: block
+      height: 45px
+      width: auto
+      transition: height 0.3s ease
+
+    
+
+  @media (min-width: 576px)
+    top: 0
+    height: 100%
+    width: 100px
+    border-top: none
+    border-right: 1px solid $gray-color
+    flex-direction: column
+    justify-content: flex-start
+
+
+    &__logo
+      display: block
+      height: 100px
+      margin-bottom: 50px
+
+    &__list
+      width: auto
+      flex-direction: column
+      justify-content: space-around
+
+    &__nav
+      margin-bottom: 10px
+      width: 100%
+      border: 1px solid transparent
+      padding: 10px 20px
+      border-radius: 15px
+
+      &:hover
+        border-color: $gray-color
+
+      &:last-child
+        margin: 0
+
+      
+
+
+
+
+  @media (min-width: 992px)
+    width: 300px
+
+    &__logo
+      height: 200px
+      margin-bottom: 80px
+
+    &__nav
+      &-link
+        display: flex
+        flex-direction: row
+        width: 220px
+        border-radius: 10px
+        align-items: center
+
+        &:hover
+          border-color: $gray-color
+
+          & img
+            height: 40px
+
+
+      &-icon
+        height: 30px
+        width: auto
+        transition: height 0.3s ease
+        margin-right: 10px
+
+       
+
+      &-description
+        display: block
+        font-size: 20px

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
+import { HttpStatusCode } from "@shared/enums/HttpStatusCodeEnum";
 import { ApiError } from "@shared/errors/ApiError";
-import { HttpStatusCode } from "../../../../shared/enums/HttpStatusCodeEnum";
 
 export function errorHandlingMiddleware (err: any, req: Request, res: Response, next: NextFunction) {
   if (err instanceof ApiError) {

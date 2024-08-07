@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export default function Vocabulary() {
-  return (
-    <div>Vocabulary</div>
-  )
+  return <div>Vocabulary</div>;
 }

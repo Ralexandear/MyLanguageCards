@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { UserRoleType } from "../../types/UserRoleType";
-import { RequestWithUserAttributes } from "../../interfaces/api/apiInterfaces";
-import { ApiError } from "../../errors/ApiError";
+import { UserRoleType } from "@shared/types/UserRoleType";
+import { RequestWithUserAttributes } from "../../interfaces/requestWithUserInterface";
+import { ApiError } from "@shared/errors/ApiError";
 
 export function checkRoleMiddleware (role: UserRoleType) {
   return function(req: RequestWithUserAttributes, res: Response, next: NextFunction) {

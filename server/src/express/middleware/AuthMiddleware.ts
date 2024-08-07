@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { ApiError } from "@shared/errors/ApiError";
 import jwt from 'jsonwebtoken'
 import Config from "../../Config";
-import { RequestWithUserAttributes } from "@shared/interfaces/api/apiInterfaces";
-import { JWTUserAttributes } from "@shared/interfaces/api/apiUserInterfaces";
+import { JWTUserAttributes } from "@shared/interfaces/server/api/apiUserInterfaces";
+import { RequestWithUserAttributes } from "../../interfaces/requestWithUserInterface";
+import { ApiError } from "@shared/errors/ApiError";
 
 const getJwtToken = (header: string | undefined) => {
   if (! header) throw new Error('Header is missing');

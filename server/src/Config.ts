@@ -1,5 +1,5 @@
-import { NodeEnv } from '../../shared/enums/NodeEnvEnum';
-import Validator from '../../shared/utils/Validator';
+import { NodeEnv } from '@shared/enums/NodeEnvEnum';
+import Validator from '@shared/utils/Validator';
 const ENV = process.env
 
 const checkedValue = (value: string | undefined) => {

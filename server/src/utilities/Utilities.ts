@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { EnvKeysType } from "../types/EnvKeysType";
+import { EnvKeysType } from '@shared/types/EnvKeysType';
 
 const ENV = process.env;
 

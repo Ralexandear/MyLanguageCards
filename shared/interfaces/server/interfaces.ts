@@ -1,5 +1,4 @@
-import { Optional } from "sequelize";
-import { UserRoleType } from "../types/UserRoleType";
+
 
 
 export interface UserAttributes {
@@ -10,7 +9,6 @@ export interface UserAttributes {
   _role: string
 }
 
-export interface UserCreationAttributes extends Optional<UserAttributes, 'id' | '_role' | '_username'> {}
 
 
 export interface VocabularyAttributes {
@@ -21,7 +19,6 @@ export interface VocabularyAttributes {
   _targetLanguageLabel: string;
 }
 
-export interface VocabularyCreationAttributes extends Optional<VocabularyAttributes, 'id'> {}
 
 
 export interface CardAttributes {
@@ -31,4 +28,3 @@ export interface CardAttributes {
   _target: string;
 }
 
-export interface CardCreationAttributes extends Optional<CardAttributes, 'id'> {}

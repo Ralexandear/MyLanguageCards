@@ -1,4 +1,4 @@
-import { UserRoleType } from "../../../server/src/types/UserRoleType";
+import { UserRoleType } from "../../../types/UserRoleType";
 
 export interface ApiUserAuthAttributes {
   email: string;
@@ -8,5 +8,4 @@ export interface ApiUserAuthAttributes {
 export interface JWTUserAttributes {
   id: number;
   role: UserRoleType;
-
 }

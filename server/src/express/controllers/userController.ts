@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from "express"
-import { ApiError } from "@shared/errors/ApiError";
-import { HttpStatusCode } from "../../../../shared/enums/HttpStatusCodeEnum";
-import { ApiUserAuthAttributes, JWTUserAttributes } from "@shared/interfaces/api/apiUserInterfaces";
-import Validator from "../../../../shared/utils/Validator";
+import { HttpStatusCode } from "@shared/enums/HttpStatusCodeEnum";
+import Validator from "@shared/utils/Validator";
 import jwt from 'jsonwebtoken'
 import UserDatabaseController from "../../database/controllers/userDatabaseController";
 import Config from "../../Config";
 import { User } from "../../database/models";
 import bcrypt from 'bcrypt'
-import { RequestWithUserAttributes } from "@shared/interfaces/api/apiInterfaces";
+import { ApiUserAuthAttributes, JWTUserAttributes } from "@shared/interfaces/server/api/apiUserInterfaces";
+import { RequestWithUserAttributes } from "../../interfaces/requestWithUserInterface";
+import { ApiError } from "@shared/errors/ApiError";
 
 
 const generateJWT = (user: User) => {

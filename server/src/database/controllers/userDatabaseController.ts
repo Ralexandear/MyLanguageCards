@@ -1,4 +1,4 @@
-import { UserRoleType } from '@shared/types/UserRoleType';
+import { UserRoleType } from "@shared/types/UserRoleType";
 import { User } from "../models";
 
 class UserDatabaseControllerClass {

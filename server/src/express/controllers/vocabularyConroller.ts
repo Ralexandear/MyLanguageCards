@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { ApiError } from "../../errors/ApiError";
-import { HttpStatusCode } from "../../../../shared/enums/HttpStatusCodeEnum";
+import { HttpStatusCode } from "@shared/enums/HttpStatusCodeEnum";
 import VocabularyDatabaseController from "../../database/controllers/vocabularyDatabaseController";
-import { ApiVocabularyCreationAttributes, ApiVocabularyEditAttributes } from "../../interfaces/api/apiVocabularyInterfaces";
+import { ApiVocabularyCreationAttributes, ApiVocabularyEditAttributes } from "@shared/interfaces/server/api/apiVocabularyInterfaces";
+import { ApiError } from "@shared/errors/ApiError";
 
 class VocabularyControllerClass {
   async create(req: Request, res: Response, next: NextFunction) {
@@ -44,26 +44,26 @@ class VocabularyControllerClass {
     }
   }
 
-  async edit(req: Request, res: Response, next: NextFunction) {
-    const queryHasEditAttributes = (obj: any): obj is ApiVocabularyEditAttributes => {
-      if (! ( typeof obj.userId === 'number' )) return false
-      else if ([obj.sourceLanguageLabel, obj.targetLanguageLabel].some(e => e && typeof e === 'string')) return true
-      return false
-    };
+  // async edit(req: Request, res: Response, next: NextFunction) {
+  //   const queryHasEditAttributes = (obj: any): obj is ApiVocabularyEditAttributes => {
+  //     if (! ( typeof obj.userId === 'number' )) return false
+  //     else if ([obj.sourceLanguageLabel, obj.targetLanguageLabel].some(e => e && typeof e === 'string')) return true
+  //     return false
+  //   };
 
-    if (! queryHasEditAttributes(req.body)) {
-      return next(ApiError.badRequest('One of the required keys userId, sourceLanguageLabel, targetLanguageLabel is missing!'));
-    }
+  //   if (! queryHasEditAttributes(req.body)) {
+  //     return next(ApiError.badRequest('One of the required keys userId, sourceLanguageLabel, targetLanguageLabel is missing!'));
+  //   }
 
-    const { userId, sourceLanguageLabel, targetLanguageLabel } = req.body;
+  //   const { userId, sourceLanguageLabel, targetLanguageLabel } = req.body;
 
-    try {
-      const {vocabulary, isNew} = await VocabularyDatabaseController.findOrCreate(userId, sourceLanguageLabel, targetLanguageLabel as string);
-      return res.status(HttpStatusCode.OK).json({ vocabulary, isNew });
-    } catch (err) {
-      return next(err)
-    }
-  }
+  //   try {
+  //     const {vocabulary, isNew} = await VocabularyDatabaseController.findOrCreate(userId, sourceLanguageLabel, targetLanguageLabel as string);
+  //     return res.status(HttpStatusCode.OK).json({ vocabulary, isNew });
+  //   } catch (err) {
+  //     return next(err)
+  //   }
+  // }
 }
 
 export const VocabularyController = new VocabularyControllerClass();

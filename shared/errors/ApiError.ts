@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "@shared/enums/HttpStatusCodeEnum";
+import { HttpStatusCode } from "../enums/HttpStatusCodeEnum";
 
 export class ApiError extends Error {
   status: HttpStatusCode;
