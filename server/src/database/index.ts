@@ -32,13 +32,24 @@ Models.Card.init(
 )
 
 
+Models.VocabularyLanguage.init(
+  {
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false },
+    _label: { type: DataTypes.STRING },
+  }, {
+    sequelize,
+    tableName: 'vocabulary_languages',
+    modelName: 'vocabularyLanguage'
+  }
+)
+
 Models.Vocabulary.init(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false },
     userId: { type: DataTypes.INTEGER, allowNull: false },
-    _name: { type: DataTypes.STRING },
-    _sourceLanguageLabel: { type: DataTypes.STRING, allowNull: false },
-    _targetLanguageLabel: { type: DataTypes.STRING, allowNull: false }
+    _label: { type: DataTypes.STRING },
+    _sourceLanguageId: { type: DataTypes.INTEGER, allowNull: false },
+    _targetLanguageId: { type: DataTypes.INTEGER, allowNull: false }
   }, {
     sequelize,
     tableName: 'vocabularies',

@@ -43,48 +43,31 @@ export class User extends Model<Interface.UserAttributes, Interface.UserCreation
 
 
 
-export class Vocabulary extends Model<Interface.VocabularyAttributes, Interface.VocabularyCreationAttributes> {
+export class Vocabulary extends Model<Interface.VocabularyAttributes, Interface.VocabularyCreationAttributes> implements Interface.VocabularyAttributes{
   readonly id!: number;
   readonly userId!: number;
-  private _email!: string
-  private _sourceLanguageLabel!: string;
-  private _targetLanguageLabel!: string;
-  private _name!: string | null
+  readonly _label!: string | null
+  readonly _sourceLanguageId!: number;
+  readonly _targetLanguageId!: number;
 
-  get email () {
-    return this._email
+
+
+  get sourceLanguageId () {
+    return this._sourceLanguageId
   }
 
-  get name () {
-    return this._name
+  get targetLanguageId () {
+    return this._targetLanguageId
   }
+}
 
-  set name (name: string | null) {
-    this._name = name
-  }
 
-  get sourceLanguageLabel () {
-    return this._sourceLanguageLabel
-  }
+export class VocabularyLanguage extends Model<Interface.VocabularyLanguageAttributes, Interface.VocabularyLanguageCreationAttributes> implements Interface.VocabularyLanguageAttributes{
+  readonly id!: number;
+  readonly _label!: string
 
-  set sourceLanguageLabel (label: string) {
-    if (! Validator.forString(label).isNotEmpty()) {
-      throw  ValidationError.valueIsEmpty()
-    }
-
-    this._sourceLanguageLabel = label
-  }
-
-  get targerLanguageLabel () {
-    return this._targetLanguageLabel
-  }
-
-  set targetLanguageLabel (label: string) {
-    if (! Validator.forString(label).isNotEmpty()) {
-      throw  ValidationError.valueIsEmpty()
-    }
-
-    this._targetLanguageLabel = label
+  get label () {
+    return this._label
   }
 }
 

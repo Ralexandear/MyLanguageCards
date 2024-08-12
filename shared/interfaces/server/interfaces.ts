@@ -9,14 +9,18 @@ export interface UserAttributes {
   _role: string
 }
 
-
+export interface VocabularyLanguageAttributes {
+  id: number;
+  _label: string | null;
+}
 
 export interface VocabularyAttributes {
   id: number;
   userId: number;
-  _name: string | null;
-  _sourceLanguageLabel: string;
-  _targetLanguageLabel: string;
+  
+  _label: string | null;
+  _sourceLanguageId: number;
+  _targetLanguageId: number;
 }
 
 
