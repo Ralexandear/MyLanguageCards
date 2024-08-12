@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken'
-import Config from "../../Config";
+import Env from "../../Env";
 import { JWTUserAttributes } from "@shared/interfaces/server/api/apiUserInterfaces";
 import { RequestWithUserAttributes } from "../../interfaces/requestWithUserInterface";
 import { ApiError } from "@shared/errors/ApiError";
@@ -21,7 +21,7 @@ export function AuthMiddleware(req: Request, res: Response, next: NextFunction) 
   try {
     console.log(req.headers)
     const token = getJwtToken(req.headers.authorization || req.headers['Authorization']?.toString())
-    const decodedData = jwt.verify(token, Config.SECRET_KEY) as JWTUserAttributes
+    const decodedData = jwt.verify(token, Env.SECRET_KEY) as JWTUserAttributes
     (req as unknown as RequestWithUserAttributes).userAttributes = decodedData
     next()
   } catch(err) {

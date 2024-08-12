@@ -1,20 +1,40 @@
-import { NodeEnv } from '@shared/enums/NodeEnvEnum';
-import Validator from '@shared/utils/Validator';
-const ENV = process.env
+import path from 'path';
+import fs from 'fs'
+import { configAttributes } from '@shared/interfaces/configAttributes';
 
-const checkedValue = (value: string | undefined) => {
-  if (value) return value
-  throw new Error('Unexpected config parameters!')
-}
+const fileDir = path.resolve(__dirname, '../../config.json');
+
+
 class ConfigClass {
-  NODE_ENV: NodeEnv
-  SECRET_KEY: string
+  private _config: configAttributes;
 
   constructor() {
-    this.NODE_ENV = ENV.NODE_ENV as NodeEnv || 'dev'
-    this.SECRET_KEY = checkedValue( ENV.SECRET_KEY )
+    this._config = (() => {
+      const configFile = fs.readFileSync(fileDir, 'utf-8');
+      return JSON.parse(configFile); // Парсим JSON из файла
+    })();
+  }
+
+  // Метод для получения значения по ключу
+  get(key: keyof configAttributes) {
+    return this._config[key];
+  }
+
+  // Метод для обновления значения и сохранения файла
+  set(key: keyof configAttributes, value: any) {
+    this._config[key] = value;
+    this.saveConfig();
+  }
+
+  // Метод для сохранения конфигурации в файл
+  saveConfig() {
+    try {
+      fs.writeFileSync(fileDir, JSON.stringify(this._config, null, 2), 'utf-8');
+    } catch (error) {
+      console.error('Ошибка сохранения конфигурации:', error);
+    }
   }
 }
 
-export const Config = new ConfigClass();
-export default Config 
+export const Config = new ConfigClass()
+export default Config;

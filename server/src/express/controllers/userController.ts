@@ -3,7 +3,7 @@ import { HttpStatusCode } from "@shared/enums/HttpStatusCodeEnum";
 import Validator from "@shared/utils/Validator";
 import jwt from 'jsonwebtoken'
 import UserDatabaseController from "../../database/controllers/userDatabaseController";
-import Config from "../../Config";
+import Env from "../../Env";
 import { User } from "../../database/models";
 import bcrypt from 'bcrypt'
 import { ApiUserAuthAttributes, JWTUserAttributes } from "@shared/interfaces/server/api/apiUserInterfaces";
@@ -17,7 +17,7 @@ const generateJWT = (user: User) => {
       id: user.id,
       role: user.role
     } as JWTUserAttributes,
-    Config.SECRET_KEY,
+    Env.SECRET_KEY,
     { expiresIn:  '24h'}
   )
 }

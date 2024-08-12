@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
-import Config from '../Config';
+import Env from '../Env';
 import cors from 'cors'
 import { NodeEnv } from '@shared/enums/NodeEnvEnum';
 import DatabaseInitialisationPromise from '../database';
@@ -20,7 +20,7 @@ const start = async () => {
     await DatabaseInitialisationPromise;
     app.listen(PORT, () => console.log('Server started on port', PORT))
   } catch (err) {
-    if (Config.NODE_ENV === NodeEnv.production) {
+    if (Env.NODE_ENV === NodeEnv.production) {
 
     }
   }
