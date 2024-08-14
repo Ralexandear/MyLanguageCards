@@ -18,7 +18,7 @@ const buttons = [
 
 const createNavButton = ([icon, title, route]: [any, string, string]) => {
   return (
-    <li className="navbar__nav">
+    <li className="navbar__nav button" key={icon + title}>
       <a href={route} className="navbar__nav-link">
         <img
           className="navbar__nav-icon"

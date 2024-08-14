@@ -21,5 +21,5 @@
     "jsx": "react-jsx",
     "typeRoots": ["./node_modules/@types", "./src/declarations.d.ts"]
   },
-  "include": [ "src" , "../shared", "../server/src/interfaces/requestWithUserInterface.ts"  ]
+  "include": [ "src" , "../shared" ]
 }

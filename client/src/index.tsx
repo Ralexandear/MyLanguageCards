@@ -3,9 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import UserStore from "./store/UserStore";
 import { ContextAttributes } from "./interfaces/ContextAttributes";
-import './styles/reset.scss'
-import './styles/normalize.scss'
-import './styles/main.sass'
+import "./styles/style.sass"
 
 export const Context = createContext({} as ContextAttributes);
 

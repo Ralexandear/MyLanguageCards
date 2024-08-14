@@ -1,11 +1,11 @@
 import Auth from "./Auth";
-import Dashboard from "./Dashboard";
 import {
   REGISTRATION_ROUTE,
   ROOT_ROUTE,
   VOCABULARY_ROUTE,
 } from "../shared/utils/routes";
 import Vocabulary from "./Vocabulary";
+import { Dashboard } from "./Dashboard";
 
 export const authRoutes = [
   {
