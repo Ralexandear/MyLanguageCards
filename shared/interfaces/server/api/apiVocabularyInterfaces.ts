@@ -1,12 +1,14 @@
+import { VocabularyLanguageAttributes } from "../interfaces";
+
 export interface ApiVocabularyCreationAttributes {
   userId: number;
-  sourceLanguageLabel: string;
-  targetLanguageLabel: string;
+  sourceLanguageId: string;
+  targetLanguageId: string;
 }
 
-export interface ApiVocabularyEditAttributes {
-  vocabularyId: number;
-  name?: string;
-  sourceLanguageLabel?: string;
-  targetLanguageLabel?: string;
+export interface ApiVocabularyAttributes {
+  id: number;
+  userId: number;
+  sourceLanguage: VocabularyLanguageAttributes
+  targetLanguage: VocabularyLanguageAttributes
 }
