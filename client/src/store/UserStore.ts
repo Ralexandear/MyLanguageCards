@@ -5,12 +5,12 @@ import { ApiVocabularyAttributes } from "../shared/interfaces/server/api/apiVoca
 export class UserStore {
   private _isAuth: boolean;
   private _user: any;
-  private _selectedVocabulary: ApiVocabularyAttributes | null
+  private _selectedVocabularyId: number | null
 
   constructor() {
     this._isAuth = false;
     this._user = null;
-    this._selectedVocabulary = null
+    this._selectedVocabularyId = null
 
     makeAutoObservable(this);
   }
@@ -27,12 +27,12 @@ export class UserStore {
     return this._user;
   }
 
-  get selectedVocabulary() {
-    return this._selectedVocabulary
+  get selectedVocabularyId() {
+    return this._selectedVocabularyId
   }
 
-  set selectedVocabulary( vocabulary ) {
-    this._selectedVocabulary = vocabulary
+  set selectedVocabularyId( vocabularyId ) {
+    this._selectedVocabularyId = vocabularyId
   }
 }
 

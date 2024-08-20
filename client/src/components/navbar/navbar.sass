@@ -4,34 +4,33 @@
   position: fixed
   bottom: 0
   left: 0
-
   width: 100%
-  padding: 20px 0
-
+  height: 100px
   display: flex
   flex-direction: row
   justify-content: center
   z-index: 1000
-
   border-top: 1px solid $gray-color
 
-  &__logo
-    display: none
+
 
   &__list
     width: 100%
     display: flex
     justify-content: space-around
 
-  &__nav
-    &-description
-      display: none
+  &__nav    
+    &.button:hover
+      .material-symbols-outlined
+        font-variation-settings: 'FILL' 1
+    &.button:active
+      .material-symbols-outlined
+        font-variation-settings: 'FILL' 1
+      
 
     &-icon
       display: block
-      height: 45px
-      width: auto
-      transition: height 0.3s ease
+      font-size: 45px
 
     
 
@@ -42,7 +41,8 @@
     border-top: none
     border-right: 1px solid $gray-color
     flex-direction: column
-    justify-content: flex-start
+    justify-content: space-between
+
 
 
     &__logo
@@ -51,13 +51,11 @@
       margin-bottom: 50px
 
     &__list
-      width: auto
       flex-direction: column
       justify-content: space-around
 
     &__nav
       margin-bottom: 10px
-      width: 100%
 
       &:last-child
         margin: 0
@@ -74,25 +72,25 @@
       height: 200px
       margin-bottom: 80px
 
-    &__nav
+    .navbar__nav
+      &.button:hover
+        border-color: $gray-color
+
+        // .navbar__nav-icon
+        //   font-size: 35px
+      
       &-link
         display: flex
         flex-direction: row
-        width: 220px
+        // width: 220px
         border-radius: 10px
         align-items: center
 
-        &:hover
-          border-color: $gray-color
-
-          & img
-            height: 40px
-
+  
 
       &-icon
-        height: 30px
-        width: auto
-        transition: height 0.3s ease
+        font-size: 30px
+        transition: font-size 0.3s ease
         margin-right: 10px
 
        
@@ -100,3 +98,8 @@
       &-description
         display: block
         font-size: 20px
+
+
+#btn
+  &_select-language
+    border-color: $gray-color

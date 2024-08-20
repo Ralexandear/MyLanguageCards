@@ -1,83 +1,104 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button, Col, Dropdown, Form, Modal, Row, Container } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
-import { ApiVocabularyAttributes } from '../../shared/interfaces/server/api/apiVocabularyInterfaces';
 import { Context } from '../..';
 import './SelectLanguagePopup.sass';
-import addIcon from '../../assets/icons/addPlus.svg';
 
 export const SelectLanguagePopup = observer(() => {
-  const { user } = useContext(Context);
-  const handleSelectLanguage = (vocabulary: ApiVocabularyAttributes) => {
-    user.selectedVocabulary = vocabulary;
-  };
+  const { user, vocabularies } = useContext(Context);
+  const { selectedVocabularyId } = user;
 
-  const languages = [
-    [1, "🇬🇧 English"],
-    [2, "🇷🇺 Русский"],
-    [3, "🇷🇸 Srbski"]
-  ] as [number, string][];
-
-  const selectedVocabulary = null; // user.selectedVocabulary
-  const [show, setShow] = useState(Boolean(!selectedVocabulary));
-  const [showCreateMenu, setShowCreateMenu] = useState(true);
-  const [selectedPrimaryLanguage, setSelectedPrimaryLanguage] = useState<string | null>(null);
-  const [selectedLearningLanguage, setSelectedLearningLanguage] = useState<string | null>(null);
+  // Управление состоянием модального окна
+  const [showModal, setShowModal] = useState(!selectedVocabularyId);
+  const [showCreateMenu, setShowCreateMenu] = useState(false);
+  const [selectedPrimaryLanguageId, setSelectedPrimaryLanguage] = useState<number | null>(null);
+  const [selectedLearningLanguageId, setSelectedLearningLanguage] = useState<number | null>(null);
   const [validated, setValidated] = useState(false);
 
-  const isSaveDisabled = ! (selectedPrimaryLanguage && selectedLearningLanguage);
+  // Следим за изменением selectedVocabularyId
+  useEffect(() => {
+    if (!selectedVocabularyId) {
+      setShowModal(true);
+    }
+  }, [selectedVocabularyId]);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const isSaveDisabled = !(selectedPrimaryLanguageId && selectedLearningLanguageId);
+
+  const closeModal = () => setShowModal(false);
 
   const handleCreateMenuOpen = () => {
-    setShowCreateMenu(true); // показать меню создания
+    setShowCreateMenu(true);
   };
 
   const handleCreateMenuClose = () => {
-    setSelectedPrimaryLanguage(null)
-    setSelectedLearningLanguage(null)
-    setShowCreateMenu(false); // скрыть меню создания
+    setSelectedPrimaryLanguage(null);
+    setSelectedLearningLanguage(null);
+    setShowCreateMenu(false);
   };
 
-  const getLanguagesDropdown = (onClick: (label: string | null) => void, excludeLanguage?: string | null) => {
-    const buttons = languages.reduce((acc, [_, label]) => {
-      if (label !== excludeLanguage) acc.push(
+  const languageList = vocabularies.languageList;
+
+  const getLanguagesDropdown = (onClick: (languageId: number | null) => void, excludeLanguageId?: number | null) => {
+    const elemAcc = new Array<JSX.Element>();
+    let elemLength = 0;
+
+    for (const [languageId, languageLabel] of Object.entries(languageList)) {
+      if (+languageId === excludeLanguageId) continue;
+      elemLength = elemAcc.push(
         <Dropdown.Item 
           className='mb-1' 
-          onClick={() => onClick(label)}
-          key={label}
+          onClick={() => onClick(+languageId)}
+          key={languageId}
         >
-          {label}
+          {languageLabel}
         </Dropdown.Item>
       );
-      return acc;
-    }, [] as JSX.Element[]);
-
-    // Убираем последний отступ, если он есть
-    if (buttons.length > 0) {
-      buttons[buttons.length - 1] = React.cloneElement(buttons[buttons.length - 1], { className: '' });
     }
 
-    return buttons;
+    if (elemLength) {
+      elemAcc[elemLength - 1] = React.cloneElement(elemAcc[elemLength - 1], { className: '' });
+    }
+
+    return elemAcc;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const form = event.currentTarget;
-    console.log(form.checkValidity())
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+  const handleVocabularyCreation = () => {
+    if (selectedLearningLanguageId === null || selectedPrimaryLanguageId === null) {
+      return console.error('one of required parameters is missing');
     }
 
-    setValidated(true);
+    vocabularies.addVocabulary({userId: 1, sourceLanguageId: selectedPrimaryLanguageId, targetLanguageId: selectedLearningLanguageId});
+    handleCreateMenuClose();
+  };
+
+  const handleSelectedVocabulary = (vocabularyId: number) => {
+    user.selectedVocabularyId = vocabularyId;
+    setShowModal(false); // Закрываем модальное окно после выбора словаря
+  };
+
+  const getVocabulariesSelectButtons = () => {
+    const list = vocabularies.list;
+    const listLength = list.length;
+    
+    if (!listLength) return;
+    
+    return list.map((e, el) => (
+      <Row key={e.id}>
+        <Button 
+          variant='outline-secondary' 
+          className={el === listLength ? '' : 'mb-2'} 
+          onClick={() => handleSelectedVocabulary(e.id)}
+        >
+          {[languageList[e._sourceLanguageId], languageList[e._targetLanguageId]].join(' => ')}
+        </Button>
+      </Row>
+    ));
   };
 
   return (
     <>
       <Modal
-        show={show}
-        onHide={handleClose}
+        show={showModal}
         backdrop="static"
         fullscreen="sm-down"
         size='md'
@@ -86,63 +107,54 @@ export const SelectLanguagePopup = observer(() => {
         id='create_vocabulary_modal'
         centered
       >
-        { showCreateMenu ?
-          (
+        { showCreateMenu ? (
             <>
-            <Form noValidate validated={validated} onSubmit={handleSubmit}>
-              <Form.Group>
-                <Modal.Header>
-                  <Modal.Title>Создайте новый словарь</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                      <Container>
-                        <Row className='align-items-center'>
-                          <Col>
-                            <Dropdown>
-                              <Dropdown.Toggle variant='light' className='w-100 d-flex align-items-center justify-content-center'>
-                                {selectedPrimaryLanguage || 'Основной язык'}
-                              </Dropdown.Toggle>
-
-                              <Dropdown.Menu>
-                                { getLanguagesDropdown(setSelectedPrimaryLanguage, selectedLearningLanguage) }
-                              </Dropdown.Menu>
-                            </Dropdown>
-                          </Col>
-                          <Col>
-                            <Dropdown>
-                              <Dropdown.Toggle variant='light' className='w-100 d-flex align-items-center justify-content-center'>
-                                {selectedLearningLanguage || 'Язык для изучения'}
-                              </Dropdown.Toggle>
-
-                              <Dropdown.Menu>
-                                { getLanguagesDropdown(setSelectedLearningLanguage, selectedPrimaryLanguage) }
-                              </Dropdown.Menu>
-                            </Dropdown>
-                          </Col>
-                        </Row>
-                      </Container>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="outline-secondary" onClick={handleCreateMenuClose} className='d-flex'>
-                    Назад
-                  </Button>
-                  <Button variant="outline-success" type='submit' className='d-flex' disabled={isSaveDisabled}>
-                    <span className="material-symbols-outlined pe-1">save</span>
-                    Сохранить
-                  </Button>
-                </Modal.Footer>
-              </Form.Group>
-            </Form>
+              <Modal.Header>
+                <Modal.Title>Создайте новый словарь</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Container>
+                  <Row className='align-items-center'>
+                    <Col>
+                      <Dropdown>
+                        <Dropdown.Toggle variant='light' className='w-100 d-flex align-items-center justify-content-center'>
+                          { (selectedPrimaryLanguageId && languageList[selectedPrimaryLanguageId]) || 'Основной язык' }
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          { getLanguagesDropdown(setSelectedPrimaryLanguage, selectedLearningLanguageId) }
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </Col>
+                    <Col>
+                      <Dropdown>
+                        <Dropdown.Toggle variant='light' className='w-100 d-flex align-items-center justify-content-center'>
+                          { (selectedLearningLanguageId && languageList[selectedLearningLanguageId]) || 'Язык для изучения' }
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          { getLanguagesDropdown(setSelectedLearningLanguage, selectedPrimaryLanguageId) }
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </Col>
+                  </Row>
+                </Container>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="outline-secondary" onClick={handleCreateMenuClose} className='d-flex'>
+                  Назад
+                </Button>
+                <Button variant="outline-success" type='button' className='d-flex' disabled={isSaveDisabled} onClick={handleVocabularyCreation}>
+                  <span className="material-symbols-outlined pe-1">save</span>
+                  Сохранить
+                </Button>
+              </Modal.Footer>
             </>
-          )
-          :
-          (
+          ) : (
             <>
               <Modal.Header>
                 <Modal.Title>Выберите словарь</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                {'⚠️ Словари не найдены'}
+                { getVocabulariesSelectButtons() || '⚠️ Словари не найдены' }
               </Modal.Body>
               <Modal.Footer>
                 <Button variant='outline-secondary' onClick={handleCreateMenuOpen} className='d-flex'>
@@ -150,7 +162,6 @@ export const SelectLanguagePopup = observer(() => {
                   Создать новый
                 </Button>
               </Modal.Footer>
-              
             </>
           )
         }

@@ -5,49 +5,65 @@ import { Context } from "../..";
 import { ROOT_ROUTE, TESTING_ROUTE, SETTINGS_ROUTE } from "../../shared/utils/routes";
 
 import LogoIcon from "../../assets/icons/logo.png";
-import QuizIcon from "../../assets/icons/quiz.svg";
-import LibraryIcon from "../../assets/icons/library.svg";
-import SettingsIcon from "../../assets/icons/settings.svg";
 import './navbar.sass'
+import { Container, Row, Button } from "react-bootstrap";
+
 
 const buttons = [
-  [LibraryIcon, "Библиотека", ROOT_ROUTE],
-  [QuizIcon, "Тестирование", TESTING_ROUTE],
-  [SettingsIcon, "Настройки", SETTINGS_ROUTE],
-] as [any, string, string][];
+  ['add', 'add_circle', "Новая карточка", TESTING_ROUTE],
+  ['library', 'library_books', "Мои наборы", ROOT_ROUTE],
+  ['stats', 'monitoring', "Статистика", SETTINGS_ROUTE],
+  ['settings', 'manage_accounts', 'Настройки', SETTINGS_ROUTE]
+] as string[][];
 
-const createNavButton = ([icon, title, route]: [any, string, string]) => {
+const createNavButton = ([id, icon, title, route]: string[]) => {
+  const elemId = 'btn_' + id
   return (
-    <li className="navbar__nav button" key={icon + title}>
+    <li className="navbar__nav button p-2" key={icon + title} id={elemId}>
       <a href={route} className="navbar__nav-link">
-        <img
-          className="navbar__nav-icon"
-          src={icon}
-          alt="icon"
-        />
-        <div className="navbar__nav-description">{title}</div>
+        <span className="material-symbols-outlined navbar__nav-icon d-flex flex-column justify-content-center align-items-center">
+        {icon}
+        </span>
+        <div className="navbar__nav-description d-none d-lg-flex flex-column justify-content-center">{title}</div>        
       </a>
     </li>
   );
 };
 
 export const NavBar = observer(() => {
-  const { user } = useContext(Context);
+  const { user, vocabularies } = useContext(Context);
+  const selectedVocabulary = user.selectedVocabularyId ? vocabularies.getById(user.selectedVocabularyId) : null;
+
   return (
     <>
-      <nav className="navbar">
-        <div className="navbar__brand">
-          <a href={ROOT_ROUTE}>
-            <img
-              className="navbar__logo"
-              src={LogoIcon}
-              alt="logo"
-            />
-          </a>
+      <nav className="navbar py-3">
+        <div className="w-100">
+          <div className="navbar__brand d-sm-flex justify-content-center">
+            <a href={ROOT_ROUTE}>
+              <img
+                className="navbar__logo d-none d-sm-block"
+                src={LogoIcon}
+                alt="logo"
+              />
+            </a>
+          </div>
+          <ul className="navbar__list px-3">
+            { buttons.map(createNavButton) }
+          </ul>
         </div>
-        <ul className="navbar__list">
-          { buttons.map(createNavButton) }
-        </ul>
+        {
+          selectedVocabulary
+          &&
+          // <button className="button p-3" >
+            <Button variant="light" id="btn_select-language" onClick={() => user.selectedVocabularyId = null}>
+              {
+                [selectedVocabulary._sourceLanguageId, selectedVocabulary._targetLanguageId].map((e, el, arr) => {
+                  return <div className={el === arr.length - 1 ? '' : 'mb-2'}>{vocabularies.languages.getById(e)._label}</div>
+                })
+              }
+            </Button>
+          //{/* </button> */}
+        }
       </nav>
     </>
   );

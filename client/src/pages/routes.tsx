@@ -2,9 +2,7 @@ import Auth from "./Auth";
 import {
   REGISTRATION_ROUTE,
   ROOT_ROUTE,
-  VOCABULARY_ROUTE,
 } from "../shared/utils/routes";
-import Vocabulary from "./Vocabulary";
 import { Dashboard } from "./Dashboard";
 
 export const authRoutes = [
@@ -12,10 +10,7 @@ export const authRoutes = [
     path: ROOT_ROUTE,
     Component: Dashboard,
   },
-  {
-    path: VOCABULARY_ROUTE,
-    Component: Vocabulary,
-  },
+
   // {
   //   path: VOCABULARY_ROUTE + '/:id',
   //   Component: Vocabulary
