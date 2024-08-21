@@ -7,6 +7,7 @@ export interface UserAttributes {
   _username: string
   _password: string
   _role: string
+  // _language: 
 }
 
 export interface VocabularyLanguageAttributes {
@@ -19,8 +20,7 @@ export interface VocabularyAttributes {
   userId: number;
   
   _label: string | null;
-  _sourceLanguageId: number;
-  _targetLanguageId: number;
+  _learningLanguageId: number;
 }
 
 

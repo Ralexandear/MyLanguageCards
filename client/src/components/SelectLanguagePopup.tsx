@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Button, Col, Dropdown, Form, Modal, Row, Container } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
-import { Context } from '../..';
-import './SelectLanguagePopup.sass';
+import { Context } from '..';
 
 export const SelectLanguagePopup = observer(() => {
   const { user, vocabularies } = useContext(Context);
