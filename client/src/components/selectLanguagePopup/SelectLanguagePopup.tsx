@@ -117,7 +117,7 @@ export const SelectLanguagePopup = observer(() => {
                   <Row className='align-items-center'>
                     <Col>
                       <Dropdown>
-                        <Dropdown.Toggle variant='light' className='w-100 d-flex align-items-center justify-content-center'>
+                        <Dropdown.Toggle variant='light' className='w-100 d-flex align-items-center justify-content-center  py-2'>
                           { (selectedPrimaryLanguageId && languageList[selectedPrimaryLanguageId]) || 'Основной язык' }
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
@@ -127,7 +127,7 @@ export const SelectLanguagePopup = observer(() => {
                     </Col>
                     <Col>
                       <Dropdown>
-                        <Dropdown.Toggle variant='light' className='w-100 d-flex align-items-center justify-content-center'>
+                        <Dropdown.Toggle variant='light' className='w-100 d-flex align-items-center justify-content-center py-2'>
                           { (selectedLearningLanguageId && languageList[selectedLearningLanguageId]) || 'Язык для изучения' }
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
@@ -139,11 +139,12 @@ export const SelectLanguagePopup = observer(() => {
                 </Container>
               </Modal.Body>
               <Modal.Footer>
-                <Button variant="outline-secondary" onClick={handleCreateMenuClose} className='d-flex'>
+                <Button variant="outline-secondary" style={{minHeight: 38}} onClick={handleCreateMenuClose} className='d-flex align-items-center h-100'>
+                <span className="material-symbols-outlined me-1 d-none">save</span>
                   Назад
                 </Button>
-                <Button variant="outline-success" type='button' className='d-flex' disabled={isSaveDisabled} onClick={handleVocabularyCreation}>
-                  <span className="material-symbols-outlined pe-1">save</span>
+                <Button variant="outline-success" style={{minHeight: 38}} type='button' className='d-flex align-items-center' disabled={isSaveDisabled} onClick={handleVocabularyCreation}>
+                  <span className="material-symbols-outlined me-1">save</span>
                   Сохранить
                 </Button>
               </Modal.Footer>

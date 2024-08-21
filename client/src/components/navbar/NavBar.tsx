@@ -6,20 +6,20 @@ import { ROOT_ROUTE, TESTING_ROUTE, SETTINGS_ROUTE } from "../../shared/utils/ro
 
 import LogoIcon from "../../assets/icons/logo.png";
 import './navbar.sass'
-import { Container, Row, Button } from "react-bootstrap";
+import { Container, Row, Button, Navbar } from "react-bootstrap";
 
 
 const buttons = [
-  ['add', 'add_circle', "Новая карточка", TESTING_ROUTE],
   ['library', 'library_books', "Мои наборы", ROOT_ROUTE],
+  ['add', 'add_circle', "Новая карточка", TESTING_ROUTE],
   ['stats', 'monitoring', "Статистика", SETTINGS_ROUTE],
-  ['settings', 'manage_accounts', 'Настройки', SETTINGS_ROUTE]
+  ['settings-desktop', 'manage_accounts', 'Настройки', SETTINGS_ROUTE]
 ] as string[][];
 
-const createNavButton = ([id, icon, title, route]: string[]) => {
+const createNavButton = (key: number, [id, icon, title, route]: string[]) => {
   const elemId = 'btn_' + id
   return (
-    <li className="navbar__nav button p-2" key={icon + title} id={elemId}>
+    <li className="navbar__nav button p-2" key={key} id={elemId}>
       <a href={route} className="navbar__nav-link">
         <span className="material-symbols-outlined navbar__nav-icon d-flex flex-column justify-content-center align-items-center">
         {icon}
@@ -36,7 +36,23 @@ export const NavBar = observer(() => {
 
   return (
     <>
-      <nav className="navbar py-3">
+      <Navbar className="bg-body-tertiary justify-content-between position-fixed top-0 px-2">
+        <div className="navbar__brand d-sm-flex justify-content-center">
+            <a href={ROOT_ROUTE}>
+              <img
+                className="navbar__logo d-sm-none"
+                src={LogoIcon}
+                alt="logo"
+              />
+            </a>
+          </div>
+          <a href={SETTINGS_ROUTE}>
+            <span className="material-symbols-outlined navbar__nav-icon d-flex flex-column justify-content-center align-items-center">
+              manage_accounts
+            </span>
+          </a>
+      </Navbar>
+      <Navbar className="bg-body-tertiary justify-content-between">
         <div className="w-100">
           <div className="navbar__brand d-sm-flex justify-content-center">
             <a href={ROOT_ROUTE}>
@@ -47,24 +63,30 @@ export const NavBar = observer(() => {
               />
             </a>
           </div>
-          <ul className="navbar__list px-3">
-            { buttons.map(createNavButton) }
+          <ul className="navbar__list px-sm-3">
+            { buttons.map((e, el) => createNavButton(el, e)) }
           </ul>
         </div>
+        <div>
         {
           selectedVocabulary
           &&
           // <button className="button p-3" >
-            <Button variant="light" id="btn_select-language" onClick={() => user.selectedVocabularyId = null}>
+            <Button variant="light" id="btn_select-language" onClick={() => user.selectedVocabularyId = null} className="d-none d-sm-block">
               {
                 [selectedVocabulary._sourceLanguageId, selectedVocabulary._targetLanguageId].map((e, el, arr) => {
-                  return <div className={el === arr.length - 1 ? '' : 'mb-2'}>{vocabularies.languages.getById(e)._label}</div>
+                  return (
+                    <div className={el === arr.length - 1 ? '' : 'mb-2'}>
+                      {vocabularies.languages.getById(e)._label}
+                    </div>
+                  )
                 })
               }
             </Button>
           //{/* </button> */}
         }
-      </nav>
+        </div>
+        </Navbar>
     </>
   );
 });

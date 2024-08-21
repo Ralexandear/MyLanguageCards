@@ -1,5 +1,7 @@
 @import '../../styles/styleVars'
 
+
+
 .navbar
   position: fixed
   bottom: 0
@@ -12,6 +14,8 @@
   z-index: 1000
   border-top: 1px solid $gray-color
 
+  &__logo
+    height: 80px
 
 
   &__list
@@ -100,6 +104,23 @@
         font-size: 20px
 
 
+#navbar
+  &-top
+    border-bottom: 1px solid $gray-color
+
+    & .navbar
+      &__logo
+
+
 #btn
+  &_add
+    @media (min-width: 576px)
+      order: -1
   &_select-language
     border-color: $gray-color
+
+  &_settings-desktop
+    display: none
+    
+    @media (min-width: 576px)
+      display: block

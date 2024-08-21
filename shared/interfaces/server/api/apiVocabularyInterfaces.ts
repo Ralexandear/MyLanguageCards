@@ -2,8 +2,8 @@ import { VocabularyLanguageAttributes } from "../interfaces";
 
 export interface ApiVocabularyCreationAttributes {
   userId: number;
-  sourceLanguageId: string;
-  targetLanguageId: string;
+  sourceLanguageId: number;
+  targetLanguageId: number;
 }
 
 export interface ApiVocabularyAttributes {
