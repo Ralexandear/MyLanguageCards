@@ -6,10 +6,11 @@ import { UserRoleType } from '@shared/types/UserRoleType'
 Models.User.init(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false },
-    _username: { type: DataTypes.STRING(30) },
+    // _username: { type: DataTypes.STRING(30) },
     _password: { type: DataTypes.STRING, allowNull: false },
     _email: { type: DataTypes.STRING, allowNull: false },
-    _role: { type: DataTypes.STRING(10), allowNull: false, defaultValue: 'user' as UserRoleType }
+    _role: { type: DataTypes.STRING(10), allowNull: false, defaultValue: 'user' as UserRoleType },
+    _languageId: { type: DataTypes.INTEGER, allowNull: false }
   }, {
     sequelize,
     tableName: 'users',
@@ -22,8 +23,8 @@ Models.Card.init(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false },
     vocabularyId: { type: DataTypes.INTEGER, allowNull: false },
-    _source: { type: DataTypes.STRING, allowNull: false },
-    _target: { type: DataTypes.STRING, allowNull: false }
+    _learningWord: { type: DataTypes.STRING, allowNull: false },
+    _translation: { type: DataTypes.STRING, allowNull: false }
   }, {
     sequelize,
     tableName: 'cards',
@@ -32,14 +33,14 @@ Models.Card.init(
 )
 
 
-Models.VocabularyLanguage.init(
+Models.Language.init(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false },
-    _label: { type: DataTypes.STRING },
+    _label: { type: DataTypes.STRING , allowNull: false },
   }, {
     sequelize,
-    tableName: 'vocabulary_languages',
-    modelName: 'vocabularyLanguage'
+    tableName: 'languages',
+    modelName: 'language'
   }
 )
 
@@ -48,8 +49,7 @@ Models.Vocabulary.init(
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false },
     userId: { type: DataTypes.INTEGER, allowNull: false },
     _label: { type: DataTypes.STRING },
-    _sourceLanguageId: { type: DataTypes.INTEGER, allowNull: false },
-    _targetLanguageId: { type: DataTypes.INTEGER, allowNull: false }
+    _learningLanguageId: { type: DataTypes.INTEGER, allowNull: false },
   }, {
     sequelize,
     tableName: 'vocabularies',

@@ -4,13 +4,12 @@
 export interface UserAttributes {
   id: number;
   _email: string;
-  _username: string
   _password: string
   _role: string
-  // _language: 
+  _languageId: number | null
 }
 
-export interface VocabularyLanguageAttributes {
+export interface LanguageAttributes {
   id: number;
   _label: string;
 }
@@ -28,7 +27,7 @@ export interface VocabularyAttributes {
 export interface CardAttributes {
   id: number;
   vocabularyId: number;
-  _source: string;
-  _target: string;
+  _translation: string;
+  _learningWord: string;
 }
 

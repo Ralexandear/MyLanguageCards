@@ -6,23 +6,13 @@ import Validator from "@shared/utils/Validator";
 import { UserRoleType } from "@shared/types/UserRoleType";
 import ValidationError from "@shared/errors/ValidationError";
 
-export class User extends Model<Interface.UserAttributes, Interface.UserCreationAttributes> {
+export class User extends Model<Interface.UserAttributes, Interface.UserCreationAttributes> implements Interface.UserAttributes {
   readonly id!: number;
-  private _username!: string;
-  private _role!: UserRoleType;
-  private _password!: string;
+  _role!: UserRoleType;
+  _password!: string;
+  _email!: string;
+  readonly _languageId!: number | null
 
-  get username () {
-    return this._username
-  }
-
-  set username (username: string) {
-    if (! Validator.forString(username).length(3, 30)) {
-      throw new ValidationError('Username length must be between 3 and 30, but it is ' + username.length);
-    }
-
-    this._username = username;
-  }
 
   get role () {
     return this._role
@@ -47,22 +37,17 @@ export class Vocabulary extends Model<Interface.VocabularyAttributes, Interface.
   readonly id!: number;
   readonly userId!: number;
   readonly _label!: string | null
-  readonly _sourceLanguageId!: number;
-  readonly _targetLanguageId!: number;
+  readonly _learningLanguageId!: number;
 
 
 
-  get sourceLanguageId () {
-    return this._sourceLanguageId
-  }
-
-  get targetLanguageId () {
-    return this._targetLanguageId
+  get learningLanguageId () {
+    return this._learningLanguageId
   }
 }
 
 
-export class VocabularyLanguage extends Model<Interface.VocabularyLanguageAttributes, Interface.VocabularyLanguageCreationAttributes> implements Interface.VocabularyLanguageAttributes{
+export class Language extends Model<Interface.LanguageAttributes, Interface.LanguageCreationAttributes> implements Interface.LanguageAttributes { //
   readonly id!: number;
   readonly _label!: string
 
@@ -72,37 +57,22 @@ export class VocabularyLanguage extends Model<Interface.VocabularyLanguageAttrib
 }
 
 
-export class Card extends Model<Interface.CardAttributes, Interface.CardCreationAttributes> {
+export class Card extends Model<Interface.CardAttributes, Interface.CardCreationAttributes> implements Interface.CardAttributes{
   readonly id!: number;
   readonly vocabularyId!: number;
+  readonly _translation!: string;
+  readonly _learningWord!: string;
+
+  get learningWord () {
+    return this._learningWord
+  }
+
+
+  get translation () {
+    return this._translation
+  }
   
-  @Length(1, 200)
-  private _source!: string;
-  
-  @Length(1, 200)
-  private _target!: string;
-
-  get source () {
-    return this._source
-  }
-
-  set source (word: string) {
-    if (! Validator.forString(word).length(1, 200)) {
-      throw ValidationError.unexpectedLength(word.length)
-    }
-
-    this._source = word
-  }
-
-  get target () {
-    return this._target
-  }
-
-  set target (word: string) {
-    if (! Validator.forString(word).length(1, 200)) {
-      throw ValidationError.unexpectedLength(word.length)
-    }
-
-    this._target = word
+  delete() {
+    return this.destroy()
   }
 }
