@@ -23,6 +23,7 @@ Models.Card.init(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false },
     vocabularyId: { type: DataTypes.INTEGER, allowNull: false },
+    groupId: { type: DataTypes.INTEGER },
     _learningWord: { type: DataTypes.STRING, allowNull: false },
     _translation: { type: DataTypes.STRING, allowNull: false }
   }, {
@@ -54,6 +55,18 @@ Models.Vocabulary.init(
     sequelize,
     tableName: 'vocabularies',
     modelName: 'vocabulary'
+  }
+)
+
+
+Models.Group.init(
+  {
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false },
+    _label: { type: DataTypes.STRING(50) }
+  }, {
+    sequelize,
+    tableName: 'groups',
+    modelName: 'group'
   }
 )
 

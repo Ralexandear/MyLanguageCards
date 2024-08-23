@@ -60,6 +60,7 @@ export class Language extends Model<Interface.LanguageAttributes, Interface.Lang
 export class Card extends Model<Interface.CardAttributes, Interface.CardCreationAttributes> implements Interface.CardAttributes{
   readonly id!: number;
   readonly vocabularyId!: number;
+  readonly groupId!: number | null;
   readonly _translation!: string;
   readonly _learningWord!: string;
 
@@ -74,5 +75,21 @@ export class Card extends Model<Interface.CardAttributes, Interface.CardCreation
   
   delete() {
     return this.destroy()
+  }
+}
+
+
+
+export class Group extends Model<Interface.GroupAttributes, Interface.GroupCreationAttributes> implements Interface.GroupAttributes {
+  readonly id!: number;
+  _label!: string;
+
+  get label () {
+    return this._label
+  }
+
+  set label ( label ) {
+    Validator.forString(label).length(1, 50)
+    this._label = label
   }
 }

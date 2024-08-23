@@ -27,7 +27,14 @@ export interface VocabularyAttributes {
 export interface CardAttributes {
   id: number;
   vocabularyId: number;
+  groupId: number | null;
   _translation: string;
   _learningWord: string;
+}
+
+
+export interface GroupAttributes {
+  id: number;
+  _label: string;
 }
 
