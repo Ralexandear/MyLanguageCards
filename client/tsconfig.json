@@ -19,7 +19,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "typeRoots": ["./node_modules/@types", "./src/declarations.d.ts"]
+    "typeRoots": ["./node_modules/@types", "./src/declarations.d.ts"],
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true
   },
   "include": [ "src" , "../shared" ]
 }

@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { VocabularyAttributes } from "../shared/interfaces/server/interfaces";
 import { ApiVocabularyCreationAttributes } from "../shared/interfaces/server/api/apiVocabularyInterfaces";
-import { VocabularyLanguageStore } from "./VocabularyLanguageStore";
+import { VocabularyLanguageStore } from "./LanguageStore";
 import UserStore from "./UserStore";
 
 let id = 1
@@ -21,7 +21,7 @@ export class VocabularyStore {
 
   addVocabulary( vocabulary: ApiVocabularyCreationAttributes ){
     const vocId = id++
-    this._vocabularies.push({id: vocId, _sourceLanguageId: vocabulary.sourceLanguageId, _targetLanguageId: vocabulary.targetLanguageId, userId: 1, _label: null})
+    this._vocabularies.push({id: vocId, _learningLanguageId : vocabulary.learningLanguageId, userId: 1, _label: null})
   }
 
   // get languageList () {
@@ -44,6 +44,10 @@ export class VocabularyStore {
     const vocabulary = this._vocabularies.find(e => e.id === id)
     if (vocabulary) return vocabulary
     throw new Error(`Vocabulary with id ${id} not found!`)
+  }
+
+  getListOfLearningLanguagesIds () {
+    return this._vocabularies.map(e => e._learningLanguageId)
   }
 }
 

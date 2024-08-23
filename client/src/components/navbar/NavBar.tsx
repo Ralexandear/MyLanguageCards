@@ -12,7 +12,7 @@ import { Container, Row, Button, Navbar } from "react-bootstrap";
 const buttons = [
   ['library', 'library_books', "Мои наборы", ROOT_ROUTE],
   ['add', 'add_circle', "Новая карточка", TESTING_ROUTE],
-  ['stats', 'monitoring', "Статистика", SETTINGS_ROUTE],
+  // ['stats', 'monitoring', "Статистика", SETTINGS_ROUTE],
   ['settings-desktop', 'manage_accounts', 'Настройки', SETTINGS_ROUTE]
 ] as string[][];
 
@@ -36,7 +36,7 @@ export const NavBar = observer(() => {
 
   return (
     <>
-      <Navbar className="bg-body-tertiary justify-content-between position-fixed top-0 px-2">
+      <Navbar className="bg-body-tertiary justify-content-between position-fixed top-0 px-3 d-flex d-sm-none">
         <div className="navbar__brand d-sm-flex justify-content-center">
             <a href={ROOT_ROUTE}>
               <img
@@ -52,7 +52,7 @@ export const NavBar = observer(() => {
             </span>
           </a>
       </Navbar>
-      <Navbar className="bg-body-tertiary justify-content-between">
+      <Navbar className="bg-body-tertiary justify-content-between py-3">
         <div className="w-100">
           <div className="navbar__brand d-sm-flex justify-content-center">
             <a href={ROOT_ROUTE}>
@@ -71,19 +71,11 @@ export const NavBar = observer(() => {
         {
           selectedVocabulary
           &&
-          // <button className="button p-3" >
             <Button variant="light" id="btn_select-language" onClick={() => user.selectedVocabularyId = null} className="d-none d-sm-block">
-              {
-                [selectedVocabulary._sourceLanguageId, selectedVocabulary._targetLanguageId].map((e, el, arr) => {
-                  return (
-                    <div className={el === arr.length - 1 ? '' : 'mb-2'}>
-                      {vocabularies.languages.getById(e)._label}
-                    </div>
-                  )
-                })
-              }
+              <div>
+                { vocabularies.languages.getById(selectedVocabulary._learningLanguageId)._label }
+              </div>
             </Button>
-          //{/* </button> */}
         }
         </div>
         </Navbar>

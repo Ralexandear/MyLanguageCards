@@ -5,6 +5,7 @@ import UserStore from "./store/UserStore";
 import { ContextAttributes } from "./interfaces/ContextAttributes";
 import "./styles/style.sass"
 import VocabularyStore from "./store/VocabularyStore";
+import GroupStore from "./store/GroupStore";
 
 export const Context = createContext({} as ContextAttributes);
 
@@ -16,7 +17,7 @@ root.render(
     <Context.Provider value={{
       user: new UserStore(),
       vocabularies: new VocabularyStore(),
-    
+      groups: new GroupStore()
     }}>
       <App />
     </Context.Provider>

@@ -1,12 +1,12 @@
 import { threadId } from "worker_threads"
-import { VocabularyLanguageAttributes } from "../shared/interfaces/server/interfaces"
+import { LanguageAttributes } from "../shared/interfaces/server/interfaces"
 
 
 export class VocabularyLanguageStore {
-  private _list = Array<VocabularyLanguageAttributes>()
+  private _list = Array<LanguageAttributes>()
   
   constructor() {
-    const languageList = this._list = new Array<VocabularyLanguageAttributes>()
+    const languageList = this._list = new Array<LanguageAttributes>()
 
     languageList.push({id: 1, _label: "🇬🇧 English"}, {id: 2, _label: "🇷🇺 Русский"}, {id: 3, _label: "🇷🇸 Srbski"})
   }

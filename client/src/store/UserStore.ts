@@ -1,15 +1,15 @@
 import { makeAutoObservable } from "mobx";
-import { VocabularyAttributes } from "../shared/interfaces/server/interfaces";
-import { ApiVocabularyAttributes } from "../shared/interfaces/server/api/apiVocabularyInterfaces";
 
 export class UserStore {
   private _isAuth: boolean;
   private _user: any;
+  private _primaryLanguageId: number | null
   private _selectedVocabularyId: number | null
 
   constructor() {
     this._isAuth = false;
     this._user = null;
+    this._primaryLanguageId = null
     this._selectedVocabularyId = null
 
     makeAutoObservable(this);
@@ -27,11 +27,19 @@ export class UserStore {
     return this._user;
   }
 
-  get selectedVocabularyId() {
+  get primaryLanguageId () {
+    return this._primaryLanguageId
+  }
+
+  set primaryLanguageId( languageId ) {
+    this._primaryLanguageId = languageId
+  }
+
+  get selectedVocabularyId () {
     return this._selectedVocabularyId
   }
 
-  set selectedVocabularyId( vocabularyId ) {
+  set selectedVocabularyId ( vocabularyId ) {
     this._selectedVocabularyId = vocabularyId
   }
 }

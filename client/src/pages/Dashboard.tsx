@@ -3,7 +3,7 @@ import { Context } from "..";
 import { observer } from "mobx-react-lite";
 import SelectLanguagePopup from "../components/SelectLanguagePopup";
 import { Col, Container, Row } from "react-bootstrap";
-import VocabularyCardRow from "../components/VocabularyCardRow";
+import GroupCardMenu from "../components/GroupCardMenu";
 
 const buildButton = () => {
   
@@ -14,8 +14,8 @@ export const Dashboard = observer(() => {
 
   return <>
     <SelectLanguagePopup />
-    <Container>
-      <VocabularyCardRow />
+    <Container className="d-flex flex-column gap-3 py-5">
+      <GroupCardMenu />
     </Container>
   </>;
 })
